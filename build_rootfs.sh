@@ -101,12 +101,8 @@ elif [ "$distro" = "alpine" ]; then
 elif [ "$distro" = "fedora" ]; then
 
 print_info "bootstraping fedora chroot"
-    supermin --prepare --names systemd,dnf,glibc-langpack-en,coreutils \ -o "$rootfs_dir-supermin.d"
-    supermin --build --format chroot "$rootfs_dir-supermin.d" -o "$rootfs_dir"
-print_info "remove useless stuff"    
-    rm -rf "$rootfs_dir-supermin.d"
-
-    chroot_script=/opt/setup_rootfs.sh
+   supermin --use-installed -o "$rootfs_dir" systemd dnf glibc-langpack-en coreutils
+    chroot_script="/opt/setup_rootfs_fedora.sh"
 else
   print_error "'$distro' is an invalid distro choice."
   exit 1
