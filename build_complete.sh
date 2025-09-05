@@ -199,6 +199,8 @@ if [ ! "$rootfs_dir" ]; then
     release="${release:-noble}"
   elif [ "$distro" = "alpine" ]; then
     release="${release:-edge}"
+  elif [ "$distro" = "fedora" ]; then
+    release="${release:-42}"
   else
     print_error "invalid distro selection"
     exit 1
