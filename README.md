@@ -73,7 +73,7 @@ Driver support depends on the device you are using shimboot on. The `patch_rootf
 
 <sup>1. The kernel is too old.</sup><br>
 <sup>2. 5ghz wifi networks do not work, but 2.4ghz networks do.</sup><br>
-<sup>3. You may need to compile the wifi driver from source. See issue #69.</sup><br>
+<sup>3. You may need to compile the wifi driver from source. See [#69](https://github.com/ading2210/shimboot/issues/69) and [#317](https://github.com/ading2210/shimboot/issues/317).</sup><br>
 <sup>4. X11 and LightDM might have some graphical issues.</sup><br>
 <sup>5. You need to use Wayland instead of X11.</sup>
 
@@ -149,8 +149,8 @@ Note: If you are building for an ARM Chromebook, you need the `qemu-user-static`
 Using any Linux distro is possible, provided that you apply the [proper patches](https://github.com/ading2210/chromeos-systemd) to systemd and recompile it. Most distros have some sort of bootstrapping tool that allows you to install it to a directory on your host PC. Then, you can just pass that rootfs directory into `patch_rootfs.sh` and `build.sh`.
 
 Here is a list of distros that are supported out of the box:
-- Debian 12 (Bookworm) - This is the default.
-- Debian 13 (Trixie)
+- Debian 12 (Bookworm)
+- Debian 13 (Trixie) - This is the default.
 - Debian Unstable (Sid)
 - Alpine Linux
 
@@ -249,6 +249,20 @@ $ nmcli connection edit <your connection name>
 > save
 > activate
 ```
+
+#### My binwalk version is unsupported.
+
+[Binwalk](https://github.com/ReFirmLabs/binwalk) is a tool that the Shimboot build scripts use to find and extract the initramfs from the shim kernel. Newer versions of binwalk (v3.x and higher) were rewritten in Rust for performance reasons. However, the new version is still feature incomplete and does not work for Shimboot's purposes. 
+
+Therefore, you need the older version of binwalk (v2.x) which was written in Python. To install it, run the following commands:
+
+```
+git clone https://salsa.debian.org/pkg-security-team/binwalk.git -b debian/2.4.3+dfsg1-2 --depth=1
+cd binwalk
+sudo python3 setup.py install
+```
+
+See the old [binwalk install instructions](https://salsa.debian.org/pkg-security-team/binwalk/-/blob/debian/2.4.3+dfsg1-2/INSTALL.md?ref_type=tags) for more information.
 
 ## Copyright:
 Shimboot is licensed under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.txt). 
