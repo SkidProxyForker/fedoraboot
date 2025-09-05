@@ -20,7 +20,7 @@ print_help() {
 }
 
 assert_root
-assert_deps "realpath debootstrap findmnt wget pcregrep tar"
+assert_deps "realpath debootstrap findmnt wget pcregrep tar supermin"
 assert_args "$2"
 parse_args "$@"
 
@@ -98,11 +98,15 @@ elif [ "$distro" = "alpine" ]; then
     --initdb add alpine-base
   chroot_script="/opt/setup_rootfs_alpine.sh"
 
-elif [ "$distro" = "artix" ]; then
+elif [ "$distro" = "fedora" ]; then
 
-print_info "downloading artools-chroot
-for artix chroot"
+print_info "bootstraping fedora chroot"
+    supermin --prepare --names systemd,dnf,glibc-langpack-en,coreutils \ -o "$rootfs_dir-supermin.d"
+    supermin --build --format chroot "$rootfs_dir-supermin.d" -o "$rootfs_dir"
+print_info "remove useless stuff"    
+    rm -rf "$rootfs_dir-supermin.d"
 
+    chroot_script=/opt/setup_rootfs.sh
 else
   print_error "'$distro' is an invalid distro choice."
   exit 1
