@@ -15,7 +15,7 @@ print_help() {
   echo "  user_passwd     - The password for the unprivileged user."
   echo "  disable_base    - Disable the base packages such as zram, cloud-utils, and command-not-found."
   echo "  arch            - The CPU architecture to build the rootfs for."
-  echo "  distro          - The Linux distro to use. This should be either 'debian' or 'alpine'."
+  echo "  distro          - The Linux distro to use. This should be either 'debian' 'alpine' or 'artix'."
   echo "If you do not specify the hostname and credentials, you will be prompted for them later."
 }
 
@@ -97,6 +97,11 @@ elif [ "$distro" = "alpine" ]; then
     --root "$rootfs_dir" \
     --initdb add alpine-base
   chroot_script="/opt/setup_rootfs_alpine.sh"
+
+elif [ "$distro" = "artix" ]; then
+
+print_info "downloading artools-chroot
+for artix chroot"
 
 else
   print_error "'$distro' is an invalid distro choice."
