@@ -99,8 +99,6 @@ elif [ "$distro" = "alpine" ]; then
   chroot_script="/opt/setup_rootfs_alpine.sh"
 
 elif [ "$distro" = "fedora" ]; then
-
-elif [ "$distro" = "fedora" ]; then
     print_info "bootstraping fedora chroot"
 
     supermin --prepare \
