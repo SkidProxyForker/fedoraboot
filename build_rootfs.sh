@@ -114,7 +114,6 @@ elif [ "$distro" = "fedora" ]; then
 
     # Point to Fedora-specific setup script
     chroot_script="/opt/setup_rootfs_fedora.sh"
-fi
 
 else
   print_error "'$distro' is an invalid distro choice."
