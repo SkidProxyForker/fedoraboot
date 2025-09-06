@@ -109,7 +109,12 @@ elif [ "$distro" = "fedora" ]; then
     -o "$rootfs_dir" \
     fedora.d
 
+  for d in proc sys dev run; do
+    mkdir -p "$rootfs_dir/$d"
+  done
+
   chroot_script="/opt/setup_rootfs_fedora.sh"
+
 
 
 else
