@@ -103,7 +103,7 @@ elif [ "$distro" = "fedora" ]; then
 
   supermin --prepare \
     -o fedora.d \
-    systemd dnf glibc-langpack-en coreutils
+    bash coreutils filesystem shadow-utils util-linux dnf systemd glibc-langpack-en
 
   supermin --build --format chroot \
     -o "$rootfs_dir" \
@@ -114,8 +114,6 @@ elif [ "$distro" = "fedora" ]; then
   done
 
   chroot_script="/opt/setup_rootfs_fedora.sh"
-
-
 
 else
   print_error "'$distro' is an invalid distro choice."
