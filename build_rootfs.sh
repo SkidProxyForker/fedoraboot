@@ -97,13 +97,14 @@ elif [ "$distro" = "alpine" ]; then
     --root "$rootfs_dir" \
     --initdb add alpine-base
   chroot_script="/opt/setup_rootfs_alpine.sh"
-
+  
 elif [ "$distro" = "fedora" ]; then
   print_info "bootstraping fedora chroot"
 
   supermin --prepare \
     -o fedora.d \
-    bash coreutils filesystem shadow-utils util-linux dnf systemd glibc-langpack-en
+    bash coreutils filesystem shadow-utils util-linux dnf \
+    fedora-release glibc-minimal-langpack systemd
 
   supermin --build --format chroot \
     -o "$rootfs_dir" \
@@ -114,6 +115,7 @@ elif [ "$distro" = "fedora" ]; then
   done
 
   chroot_script="/opt/setup_rootfs_fedora.sh"
+
 
 else
   print_error "'$distro' is an invalid distro choice."
